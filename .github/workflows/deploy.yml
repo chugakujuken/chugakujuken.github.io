@@ -5,12 +5,14 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read # This is required for actions/checkout
+  pages: write # This is required for deploying to GitHub Pages
+  id-token: write # This is required for deploying to GitHub Pages
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write # This is required for deploying to GitHub Pages
-      pages: write # This is required for deploying to GitHub Pages
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
