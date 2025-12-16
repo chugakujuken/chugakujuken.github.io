@@ -5,6 +5,11 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read # This is required for actions/checkout
+  pages: write # This is required for deploying to GitHub Pages
+  id-token: write # This is required for deploying to GitHub Pages
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
