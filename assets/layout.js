@@ -2,10 +2,10 @@
 (function(){
   const links = [
     {href:'index.html',label:'🏡 全般'},
-    {href:'sansu.html',label:'算数'},
-    {href:'kokugo.html',label:'国語'},
-    {href:'rika.html',label:'理科'},
-    {href:'shakai.html',label:'社会'}
+    {href:'sansu/sansu.html',label:'算数'},
+    {href:'kokugo/kokugo.html',label:'国語'},
+    {href:'rika/rika.html',label:'理科'},
+    {href:'shakai/shakai.html',label:'社会'}
   ];
 
   function buildHeader(){

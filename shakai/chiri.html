@@ -4,11 +4,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>地理 — 都道府県マップ練習</title>
-  <link rel="stylesheet" href="assets/styles.css">
-  
+  <link rel="stylesheet" href="styles.css">
+
   <!-- japan-map-js CSS and JS -->
   <script src="https://unpkg.com/japan-map-js@1.0.1/dist/jpmap.min.js"></script>
-  
+
   <style>
     body{font-family:'Helvetica Neue',Arial,sans-serif;background:#f5f5f5;color:#333;margin:0}
     .header{background:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.06);position:sticky;top:0}
@@ -85,7 +85,7 @@
       </div>
     </div>
 
-    <script src="assets/layout.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/gh/ka215/svg-japan@main/dist/svg-japan.min.js"></script>
     <script>
       // Detailed prefecture data (capital, region)
       const prefectureDetails = {
@@ -138,22 +138,11 @@
         '沖縄県': { capital: '那覇市', region: '九州地方' }
       };
 
-      // 47 都道府県（日本語）
-      const prefectures = [
-        '北海道','青森県','岩手県','宮城県','秋田県','山形県','福島県',
-        '茨城県','栃木県','群馬県','埼玉県','千葉県','東京都','神奈川県',
-        '新潟県','富山県','石川県','福井県','山梨県','長野県','岐阜県',
-        '静岡県','愛知県','三重県','滋賀県','京都府','大阪府','兵庫県',
-        '奈良県','和歌山県','鳥取県','島根県','岡山県','広島県','山口県',
-        '徳島県','香川県','愛媛県','高知県','福岡県','佐賀県','長崎県',
-        '熊本県','大分県','宮崎県','鹿児島県','沖縄県'
-      ];
-
-      // Prefecture codes for japan-map-js (1-47, where 1=Hokkaido, 47=Okinawa)
+      const prefectures = Object.keys(prefectureDetails);
       const prefCodes = {};
-      for (let i = 0; i < prefectures.length; i++) {
-        prefCodes[prefectures[i]] = i + 1;
-      }
+      prefectures.forEach((name, i) => {
+        prefCodes[name] = i + 1;
+      });
 
       const promptEl = document.getElementById('prompt');
       const feedback = document.getElementById('feedback');
@@ -164,41 +153,37 @@
       let order = prefectures.slice();
       let current = null;
       let running = false;
-      let quizMode = 'learning'; // 'learning', 'prefecture', 'capital', 'region'
+      let quizMode = 'learning';
       let score = 0;
       let total = 0;
-      let japanMapInstance = null;
-      let areaColors = []; // Store current colors for each prefecture
+      let coloredRegions = [];
 
-      // Initialize the Japan map
-      function initJapanMap() {
-        japanMapInstance = new jpmap.japanMap(document.getElementById("japan-map"), {
-          width: '100%',
-          height: '100%',
-          borderLineWidth: 1,
-          borderLineColor: '#888',
-          showsPrefectureName: true,
-          lang: 'ja',
-          movesIslands: true,
-          onSelect: function(data) {
-            const selectedPrefecture = data.name;
-
-            if (quizMode === 'learning') {
-              displayPrefectureInfo(selectedPrefecture);
-              setPrefectureColor(selectedPrefecture, '#3498db'); // Highlight on click
-              setTimeout(() => resetAllColors(), 1000);
-              return;
+      function drawMap(regions) {
+        document.getElementById('japan-map').innerHTML = '';
+        svgJapan({
+          element: "#japan-map",
+          regions: regions,
+          on: {
+            click: function(prefecture) {
+              const selectedPrefecture = prefecture.name;
+              if (quizMode === 'learning') {
+                displayPrefectureInfo(selectedPrefecture);
+                coloredRegions = [{ code: prefCodes[selectedPrefecture], color: '#3498db' }];
+                drawMap(coloredRegions);
+                setTimeout(() => {
+                  coloredRegions = [];
+                  drawMap();
+                }, 1000);
+                return;
+              }
+              if (!running) {
+                feedback.textContent = 'クイズを開始してください。';
+                return;
+              }
+              handleQuizAnswer(selectedPrefecture);
             }
-
-            if (!running) {
-              feedback.textContent = 'クイズを開始してください。';
-              return;
-            }
-
-            handleQuizAnswer(selectedPrefecture);
           }
         });
-        initializeColors();
       }
 
       function displayPrefectureInfo(prefectureName) {
@@ -230,53 +215,33 @@
         }
 
         if (isCorrect) {
-          setPrefectureColor(selectedPrefecture, '#2ecc71');
+          coloredRegions = [{ code: prefCodes[selectedPrefecture], color: '#2ecc71' }];
           feedback.textContent = '正解！';
           score++;
         } else {
-          setPrefectureColor(selectedPrefecture, '#e74c3c');
-          setPrefectureColor(current, '#2ecc71'); // Show correct answer
+          coloredRegions = [
+            { code: prefCodes[selectedPrefecture], color: '#e74c3c' },
+            { code: prefCodes[current], color: '#2ecc71' }
+          ];
           feedback.textContent = '不正解！正解は: ' + correctAnswer;
         }
+        drawMap(coloredRegions);
 
         total++;
         scoreEl.textContent = score;
         totalEl.textContent = total;
 
         setTimeout(() => {
-          resetAllColors();
+          coloredRegions = [];
+          drawMap();
           feedback.textContent = '';
           nextQuiz();
         }, 1500);
       }
 
-      function initializeColors() {
-        areaColors = [];
-        for (let i = 1; i <= 47; i++) {
-          areaColors.push({code: i, color: '#ffffff'});
-        }
-        japanMapInstance.setAreaColors(areaColors);
-      }
-
-      function setPrefectureColor(prefectureName, color) {
-        const code = prefCodes[prefectureName];
-        if (code) {
-          japanMapInstance.setAreaColors([{code: code, color: color}]);
-        }
-      }
-
-      function resetAllColors() {
-        areaColors = [];
-        for (let i = 1; i <= 47; i++) {
-          areaColors.push({code: i, color: '#ffffff'});
-        }
-        japanMapInstance.setAreaColors(areaColors);
-      }
-
       function createMapGrid() {
         const grid = document.getElementById('map-grid');
         grid.innerHTML = '';
-
         prefectures.forEach(name => {
           const btn = document.createElement('button');
           btn.className = 'pref';
@@ -285,16 +250,18 @@
           btn.addEventListener('click', () => {
             if (quizMode === 'learning') {
               displayPrefectureInfo(name);
-              setPrefectureColor(name, '#3498db');
-              setTimeout(() => resetAllColors(), 1000);
+              coloredRegions = [{ code: prefCodes[name], color: '#3498db' }];
+              drawMap(coloredRegions);
+              setTimeout(() => {
+                coloredRegions = [];
+                drawMap();
+              }, 1000);
               return;
             }
-
             if (!running) {
               feedback.textContent = 'クイズを開始してください。';
               return;
             }
-
             handleQuizAnswer(name);
           });
           grid.appendChild(btn);
@@ -309,7 +276,6 @@
           return;
         }
         current = order.shift();
-
         if (quizMode === 'prefecture') {
           promptEl.textContent = '選択: ' + current;
           quizInstructionsEl.textContent = '地図上の都道府県をクリックして答えてください。右下の一覧からも選べます。';
@@ -330,7 +296,8 @@
         scoreEl.textContent = 0;
         totalEl.textContent = 0;
         order = shuffle(prefectures.slice());
-        initializeColors();
+        coloredRegions = [];
+        drawMap();
         createMapGrid();
         nextQuiz();
       }
@@ -345,7 +312,8 @@
         promptEl.textContent = '学習モード: 都道府県をクリックして情報を表示';
         quizInstructionsEl.textContent = '地図上の都道府県をクリックすると、その都道府県の情報が表示されます。';
         feedback.textContent = '';
-        resetAllColors();
+        coloredRegions = [];
+        drawMap();
       });
 
       document.getElementById('stop').addEventListener('click', () => {
@@ -353,7 +321,8 @@
         promptEl.textContent = '停止中';
         quizInstructionsEl.textContent = '';
         current = null;
-        resetAllColors();
+        coloredRegions = [];
+        drawMap();
       });
 
       document.getElementById('shuffle').addEventListener('click', () => {
@@ -373,8 +342,12 @@
             answerText = prefectureDetails[current].region;
           }
           feedback.textContent = '答え: ' + answerText;
-          setPrefectureColor(current, '#2ecc71'); // Highlight correct answer
-          setTimeout(() => resetAllColors(), 1500);
+          coloredRegions = [{ code: prefCodes[current], color: '#2ecc71' }];
+          drawMap(coloredRegions);
+          setTimeout(() => {
+            coloredRegions = [];
+            drawMap();
+          }, 1500);
         }
       });
 
@@ -386,14 +359,14 @@
         return a;
       }
 
-      window.onload = function() {
-        initJapanMap();
+      document.addEventListener('DOMContentLoaded', function() {
+        drawMap();
         createMapGrid();
         totalEl.textContent = 0;
         scoreEl.textContent = 0;
         promptEl.textContent = '準備完了';
         quizInstructionsEl.textContent = 'モードを選択してください。';
-      };
+      });
     </script>
 
   </main>
