@@ -18,7 +18,7 @@
         }
         a {
             text-decoration: none;
-            color: inherit;
+            color: #2185d0;
         }
         /* Header styles */
         .header {
@@ -44,26 +44,6 @@
             color: #2185d0;
             margin-left: 10px;
         }
-        .search-bar {
-            flex-grow: 1;
-            max-width: 500px;
-            margin: 0 30px;
-        }
-        .search-bar input {
-            width: 100%;
-            padding: 10px 15px;
-            border: 1px solid #ddd;
-            border-radius: 20px;
-            font-size: 14px;
-        }
-        .user-actions a {
-            margin-left: 15px;
-            color: #666;
-            font-size: 14px;
-        }
-        .user-actions a:hover {
-            color: #2185d0;
-        }
         .main-nav {
             display: flex;
             justify-content: center;
@@ -88,48 +68,10 @@
             background-color: #2185d0;
         }
 
-        /* Banner styles */
-        .banner {
-            height: 400px;
-            background-image: linear-gradient(135deg, #2185d0, #7057f6);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .banner-content {
-            max-width: 800px;
-            padding: 0 20px;
-        }
-        .banner h2 {
-            font-size: 36px;
-            margin-bottom: 20px;
-        }
-        .banner p {
-            font-size: 18px;
-            margin-bottom: 30px;
-            opacity: 0.9;
-        }
-        .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            background-color: white;
-            color: #2185d0;
-            border-radius: 30px;
-            font-weight: bold;
-            transition: transform 0.2s;
-        }
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
         /* Main content */
         .main-content {
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 30px auto;
             padding: 0 20px 50px;
         }
         .section-title {
@@ -137,136 +79,59 @@
             margin: 40px 0 20px;
             padding-bottom: 10px;
             border-bottom: 1px solid #eee;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
-        .section-title a {
-            font-size: 14px;
+        
+        /* Calendar Table */
+        .calendar-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .calendar-table th, .calendar-table td {
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #eee;
+        }
+        .calendar-table th {
+            background-color: #f9f9f9;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .calendar-table tr:hover {
+            background-color: #f5f5f5;
+        }
+        .note {
+            font-size: 0.8em;
             color: #666;
         }
-        .section-title a:hover {
-            color: #2185d0;
+        
+        .weekend {
+            background-color: #f2f2f2;
         }
-
-        /* Course cards */
-        .course-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
+        
+        .today {
+            background-color: #dff0d8;
         }
-        .course-card {
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
+        
+        .past {
+            background-color: #ddd;
+            color: #777;
         }
-        .course-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-        }
-        .course-image {
-            height: 160px;
-            background-color: #eee;
-            background-size: cover;
-            background-position: center;
-        }
-        .course-content {
-            padding: 15px;
-        }
-        .course-category {
-            font-size: 12px;
-            color: #2185d0;
-            margin-bottom: 5px;
-        }
-        .course-title {
-            font-size: 16px;
+        
+        .countdown {
+            color: red;
             font-weight: bold;
-            margin-bottom: 10px;
-            line-height: 1.4;
-            height: 44px;
-            overflow: hidden;
         }
-        .course-stats {
-            display: flex;
-            justify-content: space-between;
-            font-size: 12px;
-            color: #999;
+        
+        .exam-count {
+            font-size: 0.8em;
+            color: #337ab7;
         }
-        .tag-pill {
-            display: inline-block;
-            padding: 2px 8px;
-            background-color: #f0f8ff;
-            color: #2185d0;
-            border-radius: 12px;
-            font-size: 12px;
-            margin-right: 5px;
-            margin-bottom: 5px;
-        }
-
-        /* Features section */
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin: 50px 0;
-            text-align: center;
-        }
-        .feature-card {
-            padding: 30px 20px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
-        .feature-card img {
-            width: 60px;
-            height: 60px;
+        
+        .filter-container {
             margin-bottom: 20px;
-        }
-        .feature-card h3 {
-            margin-bottom: 15px;
-            color: #2185d0;
-        }
-
-        /* Footer */
-        footer {
-            background-color: #2c3e50;
-            color: white;
-            padding: 50px 0 20px;
-        }
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            padding: 0 20px;
-        }
-        .footer-column h3 {
-            margin-bottom: 20px;
-            font-size: 18px;
-        }
-        .footer-column ul {
-            list-style: none;
-        }
-        .footer-column li {
-            margin-bottom: 10px;
-        }
-        .footer-column a {
-            color: #bdc3c7;
-            transition: color 0.2s;
-        }
-        .footer-column a:hover {
-            color: white;
-        }
-        .copyright {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            text-align: center;
-            color: #95a5a6;
-            font-size: 14px;
         }
 
         /* Responsive */
@@ -275,24 +140,23 @@
                 flex-direction: column;
                 padding: 15px;
             }
-            .search-bar {
-                margin: 15px 0;
-                max-width: 100%;
-            }
             .main-nav {
                 overflow-x: auto;
                 justify-content: flex-start;
                 padding: 15px;
             }
-            .banner {
-                height: 300px;
-            }
-            .banner h2 {
-                font-size: 28px;
-            }
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
+        }
+        .map-icon {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            vertical-align: middle;
+            margin-left: 8px;
+        }
+        .map-icon svg {
+            width: 100%;
+            height: 100%;
+            fill: #2185d0;
         }
     </style>
 </head>
@@ -311,5 +175,144 @@
             <a href="#about">社会</a>
         </nav>
     </header>
+
+    <main class="main-content">
+        <h2 class="section-title">2026年 中学受験カレンダー</h2>
+        <div class="filter-container">
+            <label for="school-filter">学校で絞り込み:</label>
+            <select id="school-filter" onchange="filterTable()">
+                <option value="all">すべての学校</option>
+                <option value="本郷中学校">本郷中学校</option>
+                <option value="城北中学校">城北中学校</option>
+                <option value="栄東中学校">栄東中学校</option>
+                <option value="大宮開成中学校">大宮開成中学校</option>
+            </select>
+        </div>
+        <table class="calendar-table">
+            <thead id="calendar-head">
+            </thead>
+            <tbody id="calendar-body">
+            </tbody>
+        </table>
+    </main>
+    <script>
+        const exams = [
+            { date: '2026-01-10', school: '栄東中学校', details: 'Ⅰ入試 (9:20-12:30)', applicationPeriod: '12/1-1/7' },
+            { date: '2026-01-10', school: '大宮開成中学校', details: '第1回 (8:30-12:25 or 9:30-13:25)', note: '2025年情報', applicationPeriod: '12/1-1/8' },
+            { date: '2026-01-11', school: '栄東中学校', details: 'Ⅱ入試 (9:20-12:30)', applicationPeriod: '12/1-1/7' },
+            { date: '2026-01-12', school: '栄東中学校', details: '東大特待 (4科: 9:20-13:05 / 算数: 9:20-11:15)', applicationPeriod: '12/1-1/11' },
+            { date: '2026-01-12', school: '大宮開成中学校', details: '特待生選抜 (8:30-12:25 or 9:30-13:25)', note: '2025年情報', applicationPeriod: '12/1-1/11' },
+            { date: '2026-01-14', school: '大宮開成中学校', details: '第2回 (8:30-12:25 or 9:30-13:25)', note: '2025年情報', applicationPeriod: '12/1-1/13' },
+            { date: '2026-01-16', school: '栄東中学校', details: 'Ⅲ入試 (9:20-12:30)', applicationPeriod: '12/1-1/15' },
+            { date: '2026-02-01', school: '本郷中学校', details: '第1回 (8:20-12:20)', applicationPeriod: '1/10-1/31' },
+            { date: '2026-02-01', school: '城北中学校', details: '第1回 (8:40-12:25)', note: '2025年情報', applicationPeriod: '1/10-1/30' },
+            { date: '2026-02-02', school: '本郷中学校', details: '第2回 (8:20-12:20)', applicationPeriod: '1/10-2/1' },
+            { date: '2026-02-02', school: '城北中学校', details: '第2回 (8:40-12:25)', note: '2025年情報', applicationPeriod: '1/10-2/1' },
+            { date: '2026-02-04', school: '城北中学校', details: '第3回 (8:40-12:25)', note: '2025年情報', applicationPeriod: '1/10-2/3' },
+            { date: '2026-02-05', school: '本郷中学校', details: '第3回 (8:20-12:20)', applicationPeriod: '1/10-2/4' },
+        ];
+
+        const schools = [
+            { name: '本郷中学校', deviation: '52-60', website: 'https://www.hongo.ed.jp/', location: '東京都豊島区駒込4-11-1' },
+            { name: '城北中学校', deviation: '63', website: 'https://www.johoku.ac.jp/', location: '東京都板橋区東新町2-28-1' },
+            { name: '栄東中学校', deviation: '51-59', website: 'https://www.sakaehigashi.ed.jp/', location: '埼玉県さいたま市見沼区砂町2-77' },
+            { name: '大宮開成中学校', deviation: '55', website: 'https://www.omiyakaisei.jp/', location: '埼玉県さいたま市大宮区堀の内町1-615' },
+        ];
+        const tableHead = document.getElementById('calendar-head');
+        const tableBody = document.getElementById('calendar-body');
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        let examDates = [...new Set(exams.map(e => e.date))].sort();
+
+        function renderHead() {
+            const row = document.createElement('tr');
+            const dateCell = document.createElement('th');
+            dateCell.setAttribute('onclick', 'sortTable(0)');
+            dateCell.innerText = '試験日';
+            row.appendChild(dateCell);
+            schools.forEach(school => {
+                const cell = document.createElement('th');
+                const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(school.location)}&travelmode=transit&transit_mode=${encodeURIComponent('bus|rail')}`;
+                const pinSvg = `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2C8.14 2 5 5.14 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.86-3.14-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>`;
+                cell.innerHTML = `<a href="${school.website}" target="_blank" rel="noopener">${school.name}</a> <a href="${mapsUrl}" target="_blank" rel="noopener" class="map-icon" title="経路を表示">${pinSvg}</a>`;
+                row.appendChild(cell);
+            });
+            tableHead.appendChild(row);
+        }
+
+        function renderTable(filteredExams) {
+            const examsToRender = filteredExams || exams;
+            const datesToRender = [...new Set(examsToRender.map(e => e.date))].sort();
+            tableBody.innerHTML = '';
+            datesToRender.forEach(dateStr => {
+                const row = document.createElement('tr');
+                const date = new Date(dateStr);
+                const dayOfWeek = ['日', '月', '火', '水', '木', '金', '土'][date.getDay()];
+                if (dayOfWeek === '土' || dayOfWeek === '日') {
+                    row.classList.add('weekend');
+                }
+                if (date.getTime() < today.getTime()) {
+                    row.classList.add('past');
+                }
+                if (date.getTime() === today.getTime()) {
+                    row.classList.add('today');
+                }
+                
+                const diffTime = date - today;
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                const weeks = Math.floor(diffDays / 7);
+                const days = diffDays % 7;
+                const examCount = examsToRender.filter(e => e.date === dateStr).length;
+
+                const dateCell = document.createElement('td');
+                if (diffDays >= 0) {
+                    dateCell.innerHTML = `${dateStr.replace('2026-', '')} (${dayOfWeek})<br><span class="countdown">あと${weeks}週${days}日</span><br><span class="exam-count">${examCount}件</span>`;
+                } else {
+                    dateCell.innerHTML = `${dateStr.replace('2026-', '')} (${dayOfWeek})<br><span class="exam-count">${examCount}件</span>`;
+                }
+                row.appendChild(dateCell);
+
+                schools.forEach(school => {
+                    const cell = document.createElement('td');
+                    const schoolExams = examsToRender.filter(e => e.date === dateStr && e.school === school.name);
+                    if (schoolExams.length > 0) {
+                        cell.innerHTML = schoolExams.map(e => `${e.details}<br>出願:${e.applicationPeriod}${e.note ? `<br><span class="note">${e.note}</span>` : ''}`).join('<br>');
+                    } else {
+                        cell.innerText = '-';
+                    }
+                    row.appendChild(cell);
+                });
+                tableBody.appendChild(row);
+            });
+        }
+
+        let sortAsc = true;
+        function sortTable(col) {
+            examDates.sort((a, b) => {
+                if (sortAsc) {
+                    return new Date(a) - new Date(b);
+                } else {
+                    return new Date(b) - new Date(a);
+                }
+            });
+            sortAsc = !sortAsc;
+            renderTable();
+        }
+        
+        function filterTable() {
+            const filterValue = document.getElementById('school-filter').value;
+            if (filterValue === 'all') {
+                renderTable(exams);
+            } else {
+                const filteredExams = exams.filter(e => e.school === filterValue);
+                renderTable(filteredExams);
+            }
+        }
+        
+        renderHead();
+        renderTable();
+
+    </script>
 </body>
 </html>
