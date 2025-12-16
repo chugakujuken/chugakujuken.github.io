@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>公民 — 用語暗記</title>
+  <style>
+    body{font-family:Arial,Helvetica,sans-serif;background:#f7f7f8;color:#222;margin:0}
+    .wrap{max-width:900px;margin:28px auto;padding:18px;background:#fff;border-radius:8px}
+    .controls{display:flex;gap:8px;margin-bottom:12px}
+    .card{padding:16px;border-radius:8px;border:1px solid #e6e6e6;background:#fff;margin-bottom:10px}
+    .term{font-weight:700}
+    .def{margin-top:8px;color:#444}
+  </style>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <div class="wrap">
+    <nav style="margin-bottom:12px;display:flex;gap:8px">
+      <a href="index.html">🏠 全体</a>
+      <a href="shakai.html">社会</a>
+    </nav>
+
+    <h2>公民：用語暗記</h2>
+    <p>基本用語のカードで暗記します。学習モードでは用語を隠して定義だけを出題します。</p>
+
+    <div class="controls">
+      <button id="study">学習モード</button>
+      <button id="quiz">クイズ（ランダム）</button>
+      <button id="shuffle">シャッフル</button>
+    </div>
+
+    <div id="cards"></div>
+
+    <script src="assets/layout.js" defer></script>
+    <script>
+      const data = [
+        {term:'主権',def:'国の政治上の最高の権力。国民が主権を持つ。'},
+        {term:'代議制',def:'国民が選んだ代表者が政治を行う制度。'},
+        {term:'三権分立',def:'立法・行政・司法が互いに抑制と均衡を保つ仕組み。'},
+        {term:'基本的人権',def:'すべての人に保障される基本的な権利。'}
+      ];
+
+      const container = document.getElementById('cards');
+
+      function render(list){ container.innerHTML=''; list.forEach((item,i)=>{
+        const c = document.createElement('div'); c.className='card';
+        c.innerHTML = `<div class="term">${item.term}</div><div class="def">${item.def}</div>`;
+        container.appendChild(c);
+      })}
+
+      function shuffle(a){ for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+
+      document.getElementById('shuffle').addEventListener('click', ()=>{ render(shuffle(data.slice())); });
+      document.getElementById('study').addEventListener('click', ()=>{ container.innerHTML=''; data.forEach(d=>{ const c = document.createElement('div'); c.className='card'; c.innerHTML = `<div class="term">${d.term}</div><button style="margin-top:8px" onclick="this.nextElementSibling.style.display=(this.nextElementSibling.style.display==='none'?'block':'none')">定義を表示</button><div class='def' style='display:none;margin-top:8px'>${d.def}</div>`; container.appendChild(c);} ) });
+      document.getElementById('quiz').addEventListener('click', ()=>{ const pool = shuffle(data.slice()); let idx=0; container.innerHTML=''; const q = document.createElement('div'); q.className='card'; q.innerHTML = `<div id='qterm' style='font-weight:700'></div><div id='ans' style='margin-top:10px'></div><div style='margin-top:8px'><button id='show'>答えを見る</button><button id='next' style='margin-left:8px'>次へ</button></div>`; container.appendChild(q);
+        const qterm = q.querySelector('#qterm'); const ans = q.querySelector('#ans'); const show = q.querySelector('#show'); const next = q.querySelector('#next');
+        function showQ(){ if(idx>=pool.length){ qterm.textContent='完了'; ans.textContent=''; return; } qterm.textContent = pool[idx].def; ans.textContent=''; }
+        show.addEventListener('click', ()=>{ ans.textContent = pool[idx].term });
+        next.addEventListener('click', ()=>{ idx++; showQ(); });
+        showQ();
+      });
+
+      // initial
+      render(data);
+    </script>
+  </div>
+</body>
+</html>

@@ -1,0 +1,15 @@
+/* Shared site styles for consistent layout */
+:root{--brand:#2185d0;--muted:#666;--bg:#f5f5f5}
+*{box-sizing:border-box}
+body{font-family:'Helvetica Neue',Arial,sans-serif;margin:0;background:var(--bg);color:#222}
+.site-header{background:#fff;box-shadow:0 2px 10px rgba(0,0,0,0.06);position:sticky;top:0;z-index:120}
+.site-header .header-inner{position:relative;display:flex;align-items:center;justify-content:center;max-width:1200px;margin:0 auto;padding:12px 20px}
+.site-header .logo{position:absolute;left:20px}
+.site-header .logo h1{margin:0;font-size:20px;color:var(--brand)}
+.site-nav{display:flex;gap:18px}
+.site-nav a{color:#333;text-decoration:none;padding:8px 6px;border-radius:6px}
+.site-nav a:hover{color:var(--brand);background:rgba(33,133,208,0.06)}
+.site-nav a.active{color:var(--brand);font-weight:700}
+.main-content{max-width:1100px;margin:24px auto;padding:18px;background:#fff;border-radius:8px}
+@media(max-width:720px){.site-nav{overflow:auto;padding:6px 0}}
+.page-footer{max-width:1100px;margin:18px auto;padding:12px;color:var(--muted);font-size:13px}
