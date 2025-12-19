@@ -5,19 +5,17 @@ const BOARD_COLS = 4;
 const BOARD_ROWS = 4;
 const PAIRS = 8; // Total pairs of cards
 
-// Define animal images (name and URL)
-// IMPORTANT: Replace these placeholder URLs with actual animal icon URLs.
-// You can use free icon sites like SVGRepo, Freepik, Wikimedia Commons, etc.
-// Ensure the images are square and ideally 100x100px for best results, or adjust CARD_WIDTH/CARD_HEIGHT.
+// Define animal images (name and URL) relevant to 中学受験 理科
+// Using Twemoji SVG URLs for clarity.
 const animalImages = [
-    { name: 'cat', url: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@13.1.0/assets/svg/1f408.svg' }, // Cat emoji
-    { name: 'dog', url: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@13.1.0/assets/svg/1f415.svg' }, // Dog emoji
-    { name: 'elephant', url: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@13.1.0/assets/svg/1f418.svg' }, // Elephant emoji
-    { name: 'lion', url: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@13.1.0/assets/svg/1f981.svg' }, // Lion emoji
-    { name: 'monkey', url: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@13.1.0/assets/svg/1f412.svg' }, // Monkey emoji
-    { name: 'panda', url: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@13.1.0/assets/svg/1f43c.svg' }, // Panda emoji
-    { name: 'tiger', url: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@13.1.0/assets/svg/1f405.svg' }, // Tiger emoji
-    { name: 'zebra', url: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@13.1.0/assets/svg/1f993.svg' }  // Zebra emoji
+    { name: 'コウモリ', url: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@13.1.0/assets/svg/1f987.svg' }, // Bat emoji
+    { name: 'ペンギン', url: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@13.1.0/assets/svg/1f427.svg' }, // Penguin emoji
+    { name: 'イモリ', url: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@13.1.0/assets/svg/1f98e.svg' }, // Lizard/Newt emoji (best available)
+    { name: 'ヤモリ', url: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@13.1.0/assets/svg/1f98e.svg' }, // Lizard/Gecko emoji (same as newt, might need clarification if confusing)
+    { name: 'クジラ', url: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@13.1.0/assets/svg/1f40b.svg' }, // Whale emoji
+    { name: 'イルカ', url: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@13.1.0/assets/svg/1f42c.svg' }, // Dolphin emoji
+    { name: 'メダカ', url: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@13.1.0/assets/svg/1f420.svg' }, // Fish emoji (representing Killifish)
+    { name: 'カエル', url: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@13.1.0/assets/svg/1f438.svg' }  // Frog emoji
 ];
 
 class AnimalMatchingGame extends Phaser.Scene {
