@@ -4,7 +4,7 @@
     {href:'../index.html',label:'🏡 全般'},
     {href:'../sansu/sansu.html',label:'算数'},
     {href:'../kokugo/kokugo.html',label:'国語'},
-    {href:'../rika/rika.html',label:'理科'},
+    {href:'../rika/',label:'理科'},
     {href:'shakai.html',label:'社会'}
   ];
 
