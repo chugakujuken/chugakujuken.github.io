@@ -1,0 +1,37 @@
+/* Specific styles for the game to ensure it fits well */
+#game-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 20px;
+}
+canvas {
+    border: 2px solid var(--brand);
+    border-radius: 8px;
+    display: block; /* Remove extra space below canvas */
+}
+.game-controls {
+    margin-top: 20px;
+    text-align: center;
+}
+.game-controls button {
+    margin: 5px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid var(--brand);
+    background-color: var(--brand);
+    color: white;
+}
+.game-controls button:hover {
+    opacity: 0.9;
+}
+.game-message {
+    margin-top: 20px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--brand);
+    text-align: center;
+}
