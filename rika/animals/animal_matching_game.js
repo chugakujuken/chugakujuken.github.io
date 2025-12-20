@@ -1,288 +1,197 @@
-const CARD_WIDTH = 100;
-const CARD_HEIGHT = 100;
-const CARD_SPACING = 10;
-const BOARD_COLS = 4;
-const BOARD_ROWS = 4;
-const PAIRS = 8; // Total pairs of cards
-
 // Define animal data with their classifications
 const animalData = [
     { name: 'コウモリ', url: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@13.1.0/assets/svg/1f987.svg', classification: '哺乳類' }, // Bat emoji
     { name: 'ペンギン', url: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@13.1.0/assets/svg/1f427.svg', classification: '鳥類' }, // Penguin emoji
     { name: 'イモリ', url: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@13.1.0/assets/svg/1f98e.svg', classification: '両生類' }, // Newt/Salamander emoji
-    { name: 'ヤモリ', url: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@13.1.0/assets/svg/1f98e.svg', classification: '爬虫類' }, // Gecko/Lizard emoji
+    { name: 'ヘビ', url: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@13.1.0/assets/svg/1f40d.svg', classification: '爬虫類' }, // Snake emoji
     { name: 'クジラ', url: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@13.1.0/assets/svg/1f40b.svg', classification: '哺乳類' }, // Whale emoji
     { name: 'イルカ', url: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@13.1.0/assets/svg/1f42c.svg', classification: '哺乳類' }, // Dolphin emoji
     { name: 'メダカ', url: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@13.1.0/assets/svg/1f420.svg', classification: '魚類' }, // Fish emoji (representing Killifish)
     { name: 'カエル', url: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@13.1.0/assets/svg/1f438.svg', classification: '両生類' }  // Frog emoji
 ];
 
-class AnimalMatchingGame extends Phaser.Scene {
-    constructor() {
-        super('AnimalMatchingGame');
+const PAIRS = animalData.length; // Total pairs of cards
+
+let cards = [];
+let flippedCards = [];
+let matchedPairs = 0;
+let canFlip = true;
+let timeElapsed = 0;
+let timerInterval = null;
+
+let gameBoard, startGameButton, resetButton, timeDisplay, matchedPairsDisplay, totalPairsDisplay, gameMessage;
+
+function getDOMElements() {
+    gameBoard = document.getElementById('game-board');
+    startGameButton = document.getElementById('start-game');
+    resetButton = document.getElementById('reset-game');
+    timeDisplay = document.getElementById('time');
+    matchedPairsDisplay = document.getElementById('matched-pairs');
+    totalPairsDisplay = document.getElementById('total-pairs');
+    gameMessage = document.getElementById('game-message');
+}
+
+function initGame() {
+    getDOMElements(); 
+
+    if (!gameBoard) {
+        console.error("Game board not found. Cannot initialize game.");
+        return;
     }
 
-    preload() {
-        this.load.image('card_back', this.createSolidColorTexture('card_back', 0x666666));
+    matchedPairs = 0;
+    timeElapsed = 0;
+    canFlip = true;
+    flippedCards = [];
+    if (timerInterval) {
+        clearInterval(timerInterval);
+    }
+    timeDisplay.textContent = timeElapsed;
+    matchedPairsDisplay.textContent = matchedPairs;
+    totalPairsDisplay.textContent = PAIRS;
 
-        animalData.forEach((animal) => {
-            this.load.image(animal.name, animal.url);
-        });
+    gameBoard.innerHTML = ''; 
+    gameMessage.style.display = 'none';
+    startGameButton.style.display = 'inline-block';
+    resetButton.style.display = 'none';
+
+    addEventListeners();
+}
+
+function createBoard() {
+    gameBoard.innerHTML = ''; 
+    gameBoard.style.display = 'grid'; 
+
+    let cardData = [];
+    animalData.forEach(animal => {
+        cardData.push({ type: 'animal', matchId: animal.name, displayContent: `<img src="${animal.url}" alt="${animal.name}">` });
+        cardData.push({ type: 'classification', matchId: animal.name, displayContent: `<span class="classification-text">${animal.classification}</span>` });
+    });
+    shuffleArray(cardData);
+
+    cards = []; 
+    cardData.forEach((data, index) => {
+        const cardElement = document.createElement('div');
+        cardElement.classList.add('card');
+        cardElement.dataset.index = index;
+        cardElement.dataset.type = data.type;
+        cardElement.dataset.matchId = data.matchId;
+        
+        cardElement.innerHTML = `
+            <div class="card-inner">
+                <div class="card-back"></div>
+                <div class="card-face"></div>
+            </div>
+        `;
+
+        const cardFace = cardElement.querySelector('.card-face');
+        cardElement.addEventListener('click', () => flipCard(cardElement, data.displayContent, cardFace));
+        gameBoard.appendChild(cardElement);
+        cards.push({ element: cardElement, ...data, isFlipped: false, isMatched: false, cardFace: cardFace });
+    });
+}
+
+function flipCard(cardElement, displayContent, cardFace) {
+    const card = cards[cardElement.dataset.index];
+
+    if (!canFlip || card.isFlipped || card.isMatched || flippedCards.length === 2) {
+        return;
     }
 
-    // Helper to create a solid color texture for card back
-    createSolidColorTexture(key, color) {
-        const graphics = this.make.graphics({ add: false });
-        graphics.fillStyle(color, 1);
-        graphics.fillRect(0, 0, CARD_WIDTH, CARD_HEIGHT);
-        graphics.lineStyle(2, 0x333333, 1);
-        graphics.strokeRect(0, 0, CARD_WIDTH, CARD_HEIGHT);
-        graphics.generateTexture(key, CARD_WIDTH, CARD_HEIGHT);
-        return key;
-    }
+    card.isFlipped = true;
+    cardElement.classList.add('flipped');
+    cardFace.innerHTML = displayContent; 
 
-    createClassificationTexture(classificationText) {
-        // Create a unique key for this classification text
-        const key = `classification_text_${classificationText}`;
-        if (this.textures.exists(key)) {
-            return key;
-        }
+    flippedCards.push(card);
 
-        // Create a graphics object to draw on
-        const graphics = this.make.graphics({ add: false });
-        graphics.fillStyle(0xffffff, 1);
-        graphics.fillRect(0, 0, CARD_WIDTH, CARD_HEIGHT);
-        graphics.lineStyle(2, 0x333333, 1);
-        graphics.strokeRect(0, 0, CARD_WIDTH, CARD_HEIGHT);
-
-        const textStyle = {
-            fontFamily: 'Arial',
-            fontSize: '20px',
-            color: '#000000',
-            align: 'center',
-            wordWrap: { width: CARD_WIDTH - 10, useAdvancedWrap: true }
-        };
-
-        const textObject = this.add.text(CARD_WIDTH / 2, CARD_HEIGHT / 2, classificationText, textStyle)
-            .setOrigin(0.5, 0.5);
-
-        const tempRenderTexture = this.add.renderTexture(0, 0, CARD_WIDTH, CARD_HEIGHT);
-        tempRenderTexture.draw(graphics); // Draw background
-        tempRenderTexture.draw(textObject); // Draw text on top
-        tempRenderTexture.saveTexture(key);
-
-        textObject.destroy();
-        graphics.destroy();
-        tempRenderTexture.destroy();
-
-        return key;
-    }
-
-    create() {
-        this.cameras.main.setBackgroundColor('#f5f5f5');
-
-        // Create classification textures here
-        animalData.forEach((animal) => {
-            this.createClassificationTexture(animal.classification);
-        });
-
-        this.cards = [];
-        this.flippedCards = [];
-        this.matchedPairs = 0;
-        this.canFlip = true;
-        this.timeElapsed = 0;
-        this.timer = null;
-
-        this.setupBoard();
-        this.setupTimer();
-        this.hideGameElements();
-
-        const startGameButton = document.getElementById('start-game');
-        if (startGameButton) {
-            startGameButton.addEventListener('click', () => this.startGame());
-        }
-
-        const resetButton = document.getElementById('reset-game');
-        if (resetButton) {
-            resetButton.addEventListener('click', () => this.resetGame());
-        }
-    }
-
-    hideGameElements() {
-        this.cards.forEach(card => card.setVisible(false));
-    }
-
-    showGameElements() {
-        this.cards.forEach(card => card.setVisible(true));
-    }
-
-    setupBoard() {
-        this.cards.forEach(card => card.destroy());
-        this.cards = [];
-
-        let cardData = [];
-        animalData.forEach((animal) => {
-            // Animal card
-            cardData.push({ type: 'animal', matchId: animal.name, displayKey: animal.name });
-            // Classification card
-            cardData.push({ type: 'classification', matchId: animal.name, displayKey: this.createClassificationTexture(animal.classification) });
-        });
-        Phaser.Utils.Array.Shuffle(cardData);
-
-        const boardWidth = BOARD_COLS * (CARD_WIDTH + CARD_SPACING) - CARD_SPACING;
-        const boardHeight = BOARD_ROWS * (CARD_HEIGHT + CARD_SPACING) - CARD_SPACING;
-        const offsetX = (this.sys.game.config.width - boardWidth) / 2;
-        const offsetY = (this.sys.game.config.height - boardHeight) / 2;
-
-        for (let i = 0; i < BOARD_ROWS; i++) {
-            for (let j = 0; j < BOARD_COLS; j++) {
-                const card = this.add.sprite(
-                    offsetX + j * (CARD_WIDTH + CARD_SPACING) + CARD_WIDTH / 2,
-                    offsetY + i * (CARD_HEIGHT + CARD_SPACING) + CARD_HEIGHT / 2,
-                    'card_back'
-                );
-                card.setScale(1);
-
-                card.type = cardData[i * BOARD_COLS + j].type;
-                card.matchId = cardData[i * BOARD_COLS + j].matchId;
-                card.displayKey = cardData[i * BOARD_COLS + j].displayKey;
-                card.isFlipped = false;
-                card.isMatched = false;
-
-                card.setInteractive();
-                card.on('pointerdown', () => this.onCardClicked(card));
-                this.cards.push(card);
-            }
-        }
-    }
-
-    setupTimer() {
-        this.timerText = document.getElementById('time');
-        this.matchedPairsText = document.getElementById('matched-pairs');
-        this.totalPairsText = document.getElementById('total-pairs');
-        if (this.totalPairsText) this.totalPairsText.textContent = PAIRS;
-    }
-
-    startGame() {
-        document.getElementById('start-game').style.display = 'none';
-        document.getElementById('reset-game').style.display = 'inline-block';
-        document.getElementById('game-message').style.display = 'none';
-
-        this.timeElapsed = 0;
-        this.matchedPairs = 0;
-        this.canFlip = true;
-        this.flippedCards = [];
-        if (this.timer) this.timer.destroy();
-        if (this.timerText) this.timerText.textContent = this.timeElapsed;
-        if (this.matchedPairsText) this.matchedPairsText.textContent = this.matchedPairs;
-
-        this.setupBoard();
-        this.showGameElements();
-
-        this.timer = this.time.addEvent({
-            delay: 1000,
-            callback: this.updateTimer,
-            callbackScope: this,
-            loop: true
-        });
-    }
-
-    resetGame() {
-        this.startGame();
-    }
-
-    updateTimer() {
-        this.timeElapsed++;
-        if (this.timerText) {
-            this.timerText.textContent = this.timeElapsed;
-        }
-    }
-
-    onCardClicked(card) {
-        if (!this.canFlip || card.isFlipped || card.isMatched || this.flippedCards.length === 2) {
-            return;
-        }
-
-        this.flipCard(card);
-        this.flippedCards.push(card);
-
-        if (this.flippedCards.length === 2) {
-            this.canFlip = false;
-            this.time.delayedCall(1000, this.checkForMatch, [], this);
-        }
-    }
-
-    flipCard(card) {
-        card.isFlipped = true;
-        card.setTexture(card.displayKey);
-    }
-
-    checkForMatch() {
-        const [card1, card2] = this.flippedCards;
-
-        // A match occurs if:
-        // 1. Their matchId is the same (i.e., same animal)
-        // 2. One is an 'animal' type and the other is a 'classification' type
-        const isMatch = (card1.matchId === card2.matchId) &&
-                        (card1.type !== card2.type);
-
-        if (isMatch) {
-            card1.isMatched = true;
-            card2.isMatched = true;
-            card1.disableInteractive();
-            card2.disableInteractive();
-
-            this.tweens.add({
-                targets: [card1, card2],
-                alpha: { from: 1, to: 0.5 },
-                duration: 500,
-                onComplete: () => {
-                    this.matchedPairs++;
-                    if (this.matchedPairsText) {
-                        this.matchedPairsText.textContent = this.matchedPairs;
-                    }
-                    if (this.matchedPairs === PAIRS) {
-                        this.endGame();
-                    }
-                }
-            });
-        } else {
-            this.time.delayedCall(500, () => {
-                card1.isFlipped = false;
-                card2.isFlipped = false;
-                card1.setTexture('card_back');
-                card2.setTexture('card_back');
-            }, [], this);
-        }
-
-        this.flippedCards = [];
-        this.canFlip = true;
-    }
-
-    endGame() {
-        this.timer.destroy();
-        const gameMessage = document.getElementById('game-message');
-        if (gameMessage) {
-            gameMessage.textContent = `ゲームクリア！ ${this.timeElapsed}秒で${PAIRS}ペアをマッチさせました！`;
-            gameMessage.style.display = 'block';
-        }
-        document.getElementById('reset-game').style.display = 'inline-block';
+    if (flippedCards.length === 2) {
+        canFlip = false;
+        setTimeout(checkForMatch, 1000);
     }
 }
 
-const config = {
-    type: Phaser.AUTO,
-    width: BOARD_COLS * (CARD_WIDTH + CARD_SPACING) - CARD_SPACING,
-    height: BOARD_ROWS * (CARD_HEIGHT + CARD_SPACING) - CARD_SPACING,
-    parent: 'phaser-game',
-    scene: AnimalMatchingGame,
-    context: { // Add this for performance
-        willReadFrequently: true
-    }
-};
+function checkForMatch() {
+    const [card1, card2] = flippedCards;
 
-let game;
+    const isMatch = (card1.matchId === card2.matchId) && (card1.type !== card2.type);
+
+    if (isMatch) {
+        card1.isMatched = true;
+        card2.isMatched = true;
+        card1.element.classList.add('matched');
+        card2.element.classList.add('matched');
+        matchedPairs++;
+        matchedPairsDisplay.textContent = matchedPairs;
+
+        if (matchedPairs === PAIRS) {
+            endGame();
+        }
+    } else {
+        card1.isFlipped = false;
+        card2.isFlipped = false;
+        card1.element.classList.remove('flipped');
+        card2.element.classList.remove('flipped');
+        card1.cardFace.innerHTML = ''; 
+        card2.cardFace.innerHTML = ''; 
+    }
+
+    flippedCards = [];
+    canFlip = true;
+}
+
+function startGame() {
+    startGameButton.style.display = 'none';
+    resetButton.style.display = 'inline-block';
+    
+    createBoard(); 
+
+    cards.forEach(card => {
+        card.element.classList.remove('flipped', 'matched');
+        card.cardFace.innerHTML = ''; 
+        card.isFlipped = false;
+        card.isMatched = false;
+    });
+
+    if (timerInterval) {
+        clearInterval(timerInterval);
+    }
+    timeElapsed = 0;
+    timeDisplay.textContent = timeElapsed;
+    timerInterval = setInterval(() => {
+        timeElapsed++;
+        timeDisplay.textContent = timeElapsed;
+    }, 1000);
+
+    matchedPairs = 0;
+    matchedPairsDisplay.textContent = matchedPairs;
+    gameMessage.style.display = 'none';
+}
+
+function endGame() {
+    clearInterval(timerInterval);
+    gameMessage.textContent = `ゲームクリア！ ${timeElapsed}秒で${PAIRS}ペアをマッチさせました！`;
+    gameMessage.style.display = 'block';
+    resetButton.style.display = 'inline-block';
+}
+
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+function addEventListeners() {
+    if (startGameButton) {
+        startGameButton.removeEventListener('click', startGame); 
+        startGameButton.addEventListener('click', startGame);
+    }
+    if (resetButton) {
+        resetButton.removeEventListener('click', initGame); 
+        resetButton.addEventListener('click', initGame);
+    }
+}
 
 document.addEventListener('DOMContentLoaded', () => {
-    game = new Phaser.Game(config);
+    initGame();
 });

@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>動物合わせゲーム - 理科 - 中学受験</title>
-    <script src="//cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.js"></script>
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="animal_matching_game.css">
 </head>
@@ -12,17 +11,16 @@
     <header class="site-header"></header>
     <main class="main-content">
         <h2 class="section-title">動物合わせゲーム</h2>
-        <p>同じ動物のカードを2枚選んでマッチさせよう！</p>
+        <p>同じ動物のカードと分類のカードを2枚選んでマッチさせよう！</p>
 
-        <div id="game-container">
-            <div id="phaser-game"></div>
-            <div class="game-controls">
-                <p>時間: <span id="time">0</span>秒</p>
-                <p>ペア: <span id="matched-pairs">0</span> / <span id="total-pairs">0</span></p>
-                <button id="start-game">ゲーム開始</button>
-                <button id="reset-game" style="display: none;">リセット</button>
-            </div>
+        <div id="game-controls">
+            <p>時間: <span id="time">0</span>秒</p>
+            <p>ペア: <span id="matched-pairs">0</span> / <span id="total-pairs">0</span></p>
+            <button id="start-game">ゲーム開始</button>
+            <button id="reset-game" style="display: none;">リセット</button>
         </div>
+
+        <div id="game-board" class="game-board"></div>
 
         <div id="game-message" class="game-message" style="display: none;"></div>
 

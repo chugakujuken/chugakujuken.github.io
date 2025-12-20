@@ -1,37 +1,102 @@
-/* Specific styles for the game to ensure it fits well */
-#game-container {
+body {
+    font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    margin-top: 20px;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
 }
-canvas {
-    border: 2px solid var(--brand);
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(4, 100px); /* 4 columns, 100px each */
+    grid-template-rows: repeat(4, 100px);    /* 4 rows, 100px each */
+    gap: 10px;
+    padding: 20px;
+    background-color: #a0d8f0; /* Light blue background for the board */
     border-radius: 8px;
-    display: block; /* Remove extra space below canvas */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-.game-controls {
-    margin-top: 20px;
+
+.card {
+    width: 100px;
+    height: 100px;
+    border-radius: 8px;
+    cursor: pointer;
+    position: relative;
+    perspective: 1000px; /* For 3D flip effect */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* To keep images within card bounds */
+    transform-style: preserve-3d; /* Explicitly set this */
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.card.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-face, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
     text-align: center;
 }
-.game-controls button {
-    margin: 5px;
-    padding: 10px 20px;
-    font-size: 1em;
-    cursor: pointer;
-    border-radius: 5px;
-    border: 1px solid var(--brand);
-    background-color: var(--brand);
+
+.card-back {
+    background-color: #666; /* Card back color */
     color: white;
 }
-.game-controls button:hover {
-    opacity: 0.9;
+
+.card-face {
+    background-color: #fff; /* Card front color */
+    color: #333;
+    transform: rotateY(180deg);
 }
-.game-message {
+
+
+.card img {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    display: block; /* Remove extra space below image */
+}
+
+.card .classification-text {
+    font-size: 16px;
+    color: #333;
+    padding: 5px;
+    word-break: break-word; /* Ensure long words break */
+}
+
+.card.matched .card-face {
+    background-color: #d4edda; /* Matched card color (light green) */
+}
+
+#game-controls {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#game-message {
     margin-top: 20px;
-    font-size: 1.2em;
+    font-size: 20px;
     font-weight: bold;
-    color: var(--brand);
+    color: #333;
     text-align: center;
 }
