@@ -1,0 +1,35 @@
+
+import Layout from '../components/Layout';
+import Link from 'next/link';
+
+export default function KokugoPage({ children }) {
+  return <Layout>{children}</Layout>;
+}
+
+## 国語
+
+国語の読解練習、漢字、文法、過去問など。
+
+### 国語の単元
+
+<div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px', marginTop: '20px'}}>
+    <Link href="/kokugo/kokugo_kanji" style={{display: 'block', padding: '20px', background: '#f8f9fa', border: '1px solid #ddd', borderRadius: '8px', textDecoration: 'none', color: '#333', transition: 'transform 0.2s, box-shadow 0.2s'}}>
+            <h4 style={{margin: '0 0 10px 0', color: '#2185d0'}}>KANJI 漢字</h4>
+            <p style={{margin: '0', fontSize: '14px'}}>小学6年間で学ぶ漢字の読み書きと四字熟語、部首の知識</p>
+        </Link>
+    <Link href="/kokugo/kokugo_grammar" style={{display: 'block', padding: '20px', background: '#f8f9fa', border: '1px solid #ddd', borderRadius: '8px', textDecoration: 'none', color: '#333', transition: 'transform 0.2s, box-shadow 0.2s'}}>
+            <h4 style={{margin: '0 0 10px 0', color: '#2185d0'}}>GRAMMAR 文法</h4>
+            <p style={{margin: '0', fontSize: '14px'}}>品詞、文の成分、敬語など国語の基本的な文法知識</p>
+        </Link>
+</div>
+
+<div style={{marginTop: '30px'}}>
+    <h3>その他の国語のトピック</h3>
+    <ul>
+        <li>読解力の養成</li>
+        <li>物語文・説明文の読み方</li>
+        <li>漢字の書き取り練習</li>
+        <li>語彙力の強化</li>
+        <li>作文力の向上</li>
+    </ul>
+</div>

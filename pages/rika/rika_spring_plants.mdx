@@ -1,0 +1,75 @@
+
+import Layout from '../../components/Layout';
+import Link from 'next/link';
+
+export default function RikaSpringPlantsPage({ children }) {
+  return <Layout>{children}</Layout>;
+}
+
+## 春の七草
+
+春の七草は、日本古来からの伝統で、早春に採って薬用にしたり、粥に混ぜて食べる習慣がある七種類の野菜です。参考: <a href="https://alpha-katekyo.jp/tips/tips015/" target="_blank" rel="noopener">春の七草（暗記方法）</a>
+
+<div className="gusa-grid">
+    <figure className="gusa-item">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/W_seri4081.jpg" alt="セリ" />
+        <figcaption>
+            <div className="gusa-caption"><a href="https://ja.wikipedia.org/wiki/セリ" target="_blank" rel="noopener">セリ</a></div>
+            <div className="gusa-sub">せり（芹） — <a href="https://ja.wikipedia.org/wiki/セリ" target="_blank" rel="noopener">Wikipedia</a></div>
+        </figcaption>
+    </figure>
+
+    <figure className="gusa-item">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Capsella_bursa-pastoris_01.jpg" alt="ナズナ" />
+        <figcaption>
+            <div className="gusa-caption"><a href="https://ja.wikipedia.org/wiki/ナズナ" target="_blank" rel="noopener">ナズナ</a></div>
+            <div className="gusa-sub">なずな（ぺんぺん草） — <a href="https://ja.wikipedia.org/wiki/ナズナ" target="_blank" rel="noopener">Wikipedia</a></div>
+        </figcaption>
+    </figure>
+
+    <figure className="gusa-item">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Gnaphalium_affine.jpg" alt="ゴギョウ（ハハコグサ）" />
+        <figcaption>
+            <div className="gusa-caption"><a href="https://ja.wikipedia.org/wiki/ハハコグサ" target="_blank" rel="noopener">ゴギョウ</a></div>
+            <div className="gusa-sub">ごぎょう（母子草 / ハハコグサ） — <a href="https://ja.wikipedia.org/wiki/ハハコグサ" target="_blank" rel="noopener">Wikipedia</a></div>
+        </figcaption>
+    </figure>
+
+    <figure className="gusa-item">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Chickweed_(aka).jpg" alt="ハコベ（ハコベラ）" />
+        <figcaption>
+            <div className="gusa-caption"><a href="https://ja.wikipedia.org/wiki/ハコベ" target="_blank" rel="noopener">ハコベラ</a></div>
+            <div className="gusa-sub">はこべら（ハコベ） — <a href="https://ja.wikipedia.org/wiki/ハコベ" target="_blank" rel="noopener">Wikipedia</a></div>
+        </figcaption>
+    </figure>
+
+    <figure className="gusa-item">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/572_Lamium_amplexicaule.jpg" alt="ホトケノザ" />
+        <figcaption>
+            <div className="gusa-caption"><a href="https://ja.wikipedia.org/wiki/ホトケノザ" target="_blank" rel="noopener">ホトケノザ</a></div>
+            <div className="gusa-sub">ほとけのざ（仏の座） — <a href="https://ja.wikipedia.org/wiki/ホトケノザ" target="_blank" rel="noopener">Wikipedia</a></div>
+        </figcaption>
+    </figure>
+
+    <figure className="gusa-item">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Kabu_Japan.jpg" alt="スズナ（蕪）" />
+        <figcaption>
+            <div className="gusa-caption"><a href="https://ja.wikipedia.org/wiki/カブ" target="_blank" rel="noopener">スズナ</a></div>
+            <div className="gusa-sub">すずな（蕪） — <a href="https://ja.wikipedia.org/wiki/カブ" target="_blank" rel="noopener">Wikipedia</a></div>
+        </figcaption>
+    </figure>
+
+    <figure className="gusa-item">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Daikon.Japan.jpg" alt="スズシロ（大根）" />
+        <figcaption>
+            <div className="gusa-caption"><a href="https://ja.wikipedia.org/wiki/ダイコン" target="_blank" rel="noopener">スズシロ</a></div>
+            <div className="gusa-sub">すずしろ（大根） — <a href="https://ja.wikipedia.org/wiki/ダイコン" target="_blank" rel="noopener">Wikipedia</a></div>
+        </figcaption>
+    </figure>
+</div>
+
+<div className="photo-credit">画像はウィキメディア・コモンズ（CC BY-SA等）からの参照です。必要なら画像ファイル名を差し替えます。</div>
+
+<div style={{marginTop: '30px', textAlign: 'center'}}>
+    <Link href="/rika" style={{display: 'inline-block', padding: '10px 20px', background: '#2185d0', color: 'white', textDecoration: 'none', borderRadius: '5px'}}>理科のページに戻る</Link>
+</div>
