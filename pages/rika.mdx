@@ -1,0 +1,39 @@
+
+import Layout from '../components/Layout';
+import Link from 'next/link';
+
+export default function RikaPage({ children }) {
+  return <Layout>{children}</Layout>;
+}
+
+## 理科
+
+理科の実験ノート、重要公式、過去問まとめ。
+
+### 理科の単元
+
+<div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px', marginTop: '20px'}}>
+    <Link href="/rika/rika_spring_plants">
+        <a style={{display: 'block', padding: '20px', background: '#f8f9fa', border: '1px solid #ddd', borderRadius: '8px', textDecoration: 'none', color: '#333', transition: 'transform 0.2s, box-shadow 0.2s'}}>
+            <h4 style={{margin: '0 0 10px 0', color: '#2185d0'}}>🌸 春の七草</h4>
+            <p style={{margin: '0', fontSize: '14px'}}>日本の伝統と文化に関する春の七草について学びましょう。</p>
+        </a>
+    </Link>
+    <Link href="/rika/rika_light">
+        <a style={{display: 'block', padding: '20px', background: '#f8f9fa', border: '1px solid #ddd', borderRadius: '8px', textDecoration: 'none', color: '#333', transition: 'transform 0.2s, box-shadow 0.2s'}}>
+            <h4 style={{margin: '0 0 10px 0', color: '#2185d0'}}>💡 光（ひかり）</h4>
+            <p style={{margin: '0', fontSize: '14px'}}>光の性質と反射の法則を学び、シミュレーターで確認しましょう。</p>
+        </a>
+    </Link>
+</div>
+
+<div style={{marginTop: '30px'}}>
+    <h3>その他の理科のトピック</h3>
+    <ul>
+        <li>植物の成長と光合成</li>
+        <li>電気と回路</li>
+        <li>力と運動</li>
+        <li>天体観測と星座</li>
+        <li>物質の状態変化</li>
+    </ul>
+</div>

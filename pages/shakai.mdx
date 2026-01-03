@@ -1,0 +1,21 @@
+
+import Layout from '../components/Layout';
+import Link from 'next/link';
+
+export default function ShakaiPage({ children }) {
+  return <Layout>{children}</Layout>;
+}
+
+## 社会
+
+社会の地理・歴史・公民のまとめや年表。
+
+<section style={{marginTop:'24px'}}>
+    <h3>社会の学習ページ</h3>
+    <p>以下のサブページで、歴史・地理・公民の学習コンテンツを用意しています。</p>
+    <ul style={{marginTop:'12px'}}>
+        <li><Link href="/shakai/rekishi"><a>歴史 — 年表（暗記用）</a></Link></li>
+        <li><Link href="/shakai/chiri"><a>地理 — 都道府県マップで暗記</a></Link></li>
+        <li><Link href="/shakai/koumin"><a>公民 — 用語集とまとめ</a></Link></li>
+    </ul>
+</section>

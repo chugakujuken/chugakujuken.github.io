@@ -1,0 +1,127 @@
+
+import Layout from '../../components/Layout';
+import Link from 'next/link';
+
+export default function KokugoKanjiPage({ children }) {
+  return <Layout>{children}</Layout>;
+}
+
+## 漢字（かんじ）— 小学校で学ぶ重要な漢字
+
+中学受験の漢字分野では、小学校で学ぶ学年別漢字配当表の内容をマスターすることが重要です。読み・書き・使い分けの練習をしっかり行いましょう。
+
+### 学年別漢字の一覧
+
+出題頻度が高い漢字を中心に、学年別にまとめています。クリックして意味や読み方を確認できます。
+
+<div className="kanji-grid">
+    <div className="kanji-card">
+        <div className="kanji-character">学</div>
+        <div className="kanji-reading">がく、まなぶ</div>
+        <div className="kanji-meaning">学ぶこと</div>
+        <div className="kanji-category">4年</div>
+    </div>
+    <div className="kanji-card">
+        <div className="kanji-character">校</div>
+        <div className="kanji-reading">こう、-がっ、やしろ、-ぎょう</div>
+        <div className="kanji-meaning">学校</div>
+        <div className="kanji-category">2年</div>
+    </div>
+    <div className="kanji-card">
+        <div className="kanji-character">生</div>
+        <div className="kanji-reading">せい、しょう、いきる、うまれる、-う、-える</div>
+        <div className="kanji-meaning">生きる、生まれる、学生</div>
+        <div className="kanji-category">1年</div>
+    </div>
+    <div className="kanji-card">
+        <div className="kanji-character">活</div>
+        <div className="kanji-reading">かつ</div>
+        <div className="kanji-meaning">生きる、活動</div>
+        <div className="kanji-category">3年</div>
+    </div>
+    <div className="kanji-card">
+        <div className="kanji-character">算</div>
+        <div className="kanji-reading">さん</div>
+        <div className="kanji-meaning">計算する</div>
+        <div className="kanji-category">2年</div>
+    </div>
+    <div className="kanji-card">
+        <div className="kanji-character">数</div>
+        <div className="kanji-reading">すう、す、かず、かぞえる</div>
+        <div className="kanji-meaning">数える、数</div>
+        <div className="kanji-category">1年</div>
+    </div>
+    <div className="kanji-card">
+        <div className="kanji-character">理</div>
+        <div className="kanji-reading">り、ことわり</div>
+        <div className="kanji-meaning">論理、整理</div>
+        <div className="kanji-category">3年</div>
+    </div>
+    <div className="kanji-card">
+        <div className="kanji-character">科</div>
+        <div className="kanji-reading">か</div>
+        <div className="kanji-meaning">学科、科学</div>
+        <div className="kanji-category">4年</div>
+    </div>
+</div>
+
+<div className="quiz-container">
+    <h4>漢字クイズ</h4>
+    <div className="quiz-question">
+        「がく」の音がつく漢字で、「勉強すること」の意味は？
+        <br/><small>選択肢: 学、校、校舎、教育</small>
+    </div>
+    <button style={{background: '#2185d0', color: 'white', border: 'none', padding: '8px 15px', borderRadius: '4px', cursor: 'pointer'}}>答えを見る</button>
+</div>
+
+### 中学受験に頻出する四字熟語
+
+<div className="kanji-list">
+    <div className="kanji-card">
+        <div className="kanji-character">自立自強</div>
+        <div className="kanji-reading">じりつじきょう</div>
+        <div className="kanji-meaning">自分自身で立ち、自分自身で強く励むこと</div>
+    </div>
+    <div className="kanji-card">
+        <div className="kanji-character">努力精進</div>
+        <div className="kanji-reading">どりょくしんじん</div>
+        <div className="kanji-meaning">一生懸命に努力して、さらに進歩しようと励むこと</div>
+    </div>
+    <div className="kanji-card">
+        <div className="kanji-character">勤倹小心</div>
+        <div className="kanji-reading">きんけんしょうしん</div>
+        <div className="kanji-meaning">倹約でつつましく、つつしんで細心の注意を払うこと</div>
+    </div>
+    <div className="kanji-card">
+        <div className="kanji-character">百聞息見</div>
+        <div className="kanji-reading">ひゃくぶんそくけん</div>
+        <div className="kanji-meaning">百回聞くよりも一度見るほうが優れているという意味</div>
+    </div>
+</div>
+
+### 部首（ぶしゅ）の学習
+
+漢字を覚えるには、部首の意味を理解することが効果的です。以下に代表的な部首を紹介します。
+
+<div className="kanji-list">
+    <div className="kanji-card">
+        <div className="kanji-character">にんべん</div>
+        <div className="kanji-meaning">人に関すること。例：他、住、何</div>
+    </div>
+    <div className="kanji-card">
+        <div className="kanji-character">にょうぼう</div>
+        <div className="kanji-meaning">水に関すること。例：河、海、活</div>
+    </div>
+    <div className="kanji-card">
+        <div className="kanji-character">にんべん</div>
+        <div className="kanji-meaning">手に関すること。例：持、打、掃</div>
+    </div>
+    <div className="kanji-card">
+        <div className="kanji-character">くさかんむり</div>
+        <div className="kanji-meaning">植物に関すること。例：花、茶、若</div>
+    </div>
+</div>
+
+<div style={{marginTop: '30px', textAlign: 'center'}}>
+    <Link href="/kokugo"><a style={{display: 'inline-block', padding: '10px 20px', background: '#2185d0', color: 'white', textDecoration: 'none', borderRadius: '5px'}}>国語のページに戻る</a></Link>
+</div>

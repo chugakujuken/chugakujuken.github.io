@@ -1,0 +1,113 @@
+
+import Layout from '../../components/Layout';
+import Link from 'next/link';
+
+export default function KokugoGrammarPage({ children }) {
+  return <Layout>{children}</Layout>;
+}
+
+## 文法（ぶんぽう）— 中学受験に必要な文法知識
+
+中学受験の国語では、基本的な文法知識が読解力向上に不可欠です。文中の言葉の働きや文の構造を理解することで、文章の意味を正確に捉える力が身につきます。
+
+### 品詞の分類
+
+文を構成する言葉は、品詞によって分類されます。それぞれの品詞の性質と働きを理解しましょう。
+
+<div className="grammar-topic">
+    <h4>名詞</h4>
+    <p>人や物、こと、場所などを表す言葉です。</p>
+    <div className="grammar-example">
+        <p><strong>例：</strong>「<span style={{color: '#2185d0'}}>犬</span>が<em>走る</em>。」「<span style={{color: '#2185d0'}}>学校</span>に行く。」</p>
+    </div>
+</div>
+
+<div className="grammar-topic">
+    <h4>動詞</h4>
+    <p>动作、状態、変化などを表す言葉です。</p>
+    <div className="grammar-example">
+        <p><strong>例：</strong>「犬が<span style={{color: '#2185d0'}}>走る</span>。」「本を<span style={{color: '#2185d0'}}>読む</span>。」</p>
+    </div>
+</div>
+
+<div className="grammar-topic">
+    <h4>形容詞</h4>
+    <p>物事の性質や状態を表す言葉です。</p>
+    <div className="grammar-example">
+        <p><strong>例：</strong>「<span style={{color: '#2185d0'}}>美しい</span>花。」「空が<span style={{color: '#2185d0'}}>青い</span>。」</p>
+    </div>
+</div>
+
+<div className="grammar-topic">
+    <h4>助詞</h4>
+    <p>名詞や用言に付いて、その言葉の働きを表す言葉です。</p>
+    <div className="grammar-example">
+        <p><strong>例：</strong>「本<span style={{color: '#2185d0'}}>を</span>読む」「学校<span style={{color: '#2185d0'}}>に</span>行く」「友達<span style={{color: '#2185d0'}}>と</span>遊ぶ」</p>
+    </div>
+</div>
+
+### 文の成分
+
+文を構成する要素を理解することで、文の意味を正確に捉えられるようになります。
+
+<div className="grammar-topic">
+    <h4>主語と述語</h4>
+    <p><strong>主語：</strong>文の中で、何について述べているのかを示す部分。<br/>
+    <strong>述語：</strong>主語に対して、何であるか・何を行うかなどを表す部分。</p>
+    
+    <div className="grammar-example">
+        <p><strong>例：</strong>「<span style={{color: '#2185d0'}}>犬</span>（主語）が<span style={{color: '#e74c3c'}}>走る</span>（述語）。」</p>
+        <p>「<span style={{color: '#2185d0'}}>彼</span>（主語）は<span style={{color: '#e74c3c'}}>泳ぐ</span>（述語）のが得意だ。」</p>
+    </div>
+</div>
+
+<div className="grammar-topic">
+    <h4>修飾語</h4>
+    <p>名詞や動詞などを詳しく説明する言葉。</p>
+    <div className="grammar-example">
+        <p><strong>例：</strong><em>「<span style={{color: '#2185d0'}}>速く</span>走る。」「<span style={{color: '#2185d0'}}>とても</span>美しい花。」</em></p>
+    </div>
+</div>
+
+### 文の種類
+
+<div className="grammar-topic">
+    <h4>平叙文・疑問文・命令文・感嘆文</h4>
+    <ul>
+        <li><strong>平叙文：</strong>事実を述べる文（例：「私は学校に行く。」）</li>
+        <li><strong>疑問文：</strong>質問する文（例：「学校に行くのか？」）</li>
+        <li><strong>命令文：</strong>命令する文（例：「静かにしろ。」）</li>
+        <li><strong>感嘆文：</strong>感情を表す文（例：「なんと美しい花だろう！」）</li>
+    </ul>
+</div>
+
+<div className="quiz-section">
+    <h4>文法クイズ</h4>
+    <div className="grammar-exercise">
+        <p><strong>問題：</strong>「美しい景色を<em>ゆっくり</em>と眺めた。」という文の「ゆっくり」という言葉の品詞を答えなさい。</p>
+        <button style={{background: '#2185d0', color: 'white', border: 'none', padding: '8px 15px', borderRadius: '4px', cursor: 'pointer'}}>答えを見る</button>
+    </div>
+    
+    <div className="grammar-exercise">
+        <p><strong>問題：</strong>次の文の空欄に入る適切な助詞を選びなさい。</p>
+        <p>「本（<span className="fill-blank">　　</span>）読む」「学校（<span className="fill-blank">　　</span>）行く」「友達（<span className="fill-blank">　　</span>）話す」</p>
+        <button style={{background: '#2185d0', color: 'white', border: 'none', padding: '8px 15px', borderRadius: '4px', cursor: 'pointer'}}>答えを見る</button>
+    </div>
+</div>
+
+### 敬語（けいご）の基本
+
+敬語は、話す相手や話題にする相手に対する敬意を表すために使われます。中学受験では基本的な敬語の使い分けが問われます。
+
+<div className="grammar-topic">
+    <h4>尊敬語・謙譲語・丁寧語</h4>
+    <div className="explanation">
+        <p><strong>尊敬語：</strong>話題にしている人の動作を敬って言い換える表現（例：「行く」→「いらっしゃる」）</p>
+        <p><strong>謙譲語：</strong>自分の動作をへりくだって相手を立てる表現（例：「行く」→「参る」）</p>
+        <p><strong>丁寧語：</strong>すべての動作を丁寧に表現する語（例：「です」「ます」）</p>
+    </div>
+</div>
+
+<div style={{marginTop: '30px', textAlign: 'center'}}>
+    <Link href="/kokugo"><a style={{display: 'inline-block', padding: '10px 20px', background: '#2185d0', color: 'white', textDecoration: 'none', borderRadius: '5px'}}>国語のページに戻る</a></Link>
+</div>
