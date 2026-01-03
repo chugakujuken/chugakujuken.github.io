@@ -11,11 +11,11 @@ const Layout = ({ children }) => {
                     </div>
                 </div>
                 <nav className="main-nav">
-                    <Link href="/"><a>🏡　全般</a></Link>
-                    <Link href="/sansu"><a>算数</a></Link>
-                    <Link href="/kokugo"><a>国語</a></Link>
-                    <Link href="/rika"><a>理科</a></Link>
-                    <Link href="/shakai"><a>社会</a></Link>
+                    <Link href="/">🏡　全般</Link>
+                    <Link href="/sansu">算数</Link>
+                    <Link href="/kokugo">国語</Link>
+                    <Link href="/rika">理科</Link>
+                    <Link href="/shakai">社会</Link>
                 </nav>
             </header>
             <main className="main-content">{children}</main>

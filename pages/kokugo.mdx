@@ -13,18 +13,14 @@ export default function KokugoPage({ children }) {
 ### 国語の単元
 
 <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px', marginTop: '20px'}}>
-    <Link href="/kokugo/kokugo_kanji">
-        <a style={{display: 'block', padding: '20px', background: '#f8f9fa', border: '1px solid #ddd', borderRadius: '8px', textDecoration: 'none', color: '#333', transition: 'transform 0.2s, box-shadow 0.2s'}}>
+    <Link href="/kokugo/kokugo_kanji" style={{display: 'block', padding: '20px', background: '#f8f9fa', border: '1px solid #ddd', borderRadius: '8px', textDecoration: 'none', color: '#333', transition: 'transform 0.2s, box-shadow 0.2s'}}>
             <h4 style={{margin: '0 0 10px 0', color: '#2185d0'}}>KANJI 漢字</h4>
             <p style={{margin: '0', fontSize: '14px'}}>小学6年間で学ぶ漢字の読み書きと四字熟語、部首の知識</p>
-        </a>
-    </Link>
-    <Link href="/kokugo/kokugo_grammar">
-        <a style={{display: 'block', padding: '20px', background: '#f8f9fa', border: '1px solid #ddd', borderRadius: '8px', textDecoration: 'none', color: '#333', transition: 'transform 0.2s, box-shadow 0.2s'}}>
+        </Link>
+    <Link href="/kokugo/kokugo_grammar" style={{display: 'block', padding: '20px', background: '#f8f9fa', border: '1px solid #ddd', borderRadius: '8px', textDecoration: 'none', color: '#333', transition: 'transform 0.2s, box-shadow 0.2s'}}>
             <h4 style={{margin: '0 0 10px 0', color: '#2185d0'}}>GRAMMAR 文法</h4>
             <p style={{margin: '0', fontSize: '14px'}}>品詞、文の成分、敬語など国語の基本的な文法知識</p>
-        </a>
-    </Link>
+        </Link>
 </div>
 
 <div style={{marginTop: '30px'}}>

@@ -127,11 +127,15 @@ const RikaLightPage = () => {
 
 
 
-            <div style={{ marginTop: '30px', textAlign: 'center' }}>
+                        <div style={{ marginTop: '30px', textAlign: 'center' }}>
 
-                <Link href="/rika"><a style={{ display: 'inline-block', padding: '10px 20px', background: '#2185d0', color: 'white', textDecoration: 'none', borderRadius: '5px' }}>理科のページに戻る</a></Link>
 
-            </div>
+
+                            <Link href="/rika" style={{ display: 'inline-block', padding: '10px 20px', background: '#2185d0', color: 'white', textDecoration: 'none', borderRadius: '5px' }}>理科のページに戻る</Link>
+
+
+
+                        </div>
 
         </Layout>
 
